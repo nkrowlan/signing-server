@@ -1,4 +1,4 @@
-# -*- test-case-name: signing.test.signedprotocol_tests -*-
+# -*- test-case-name: signing.test.test_signedprotocol -*-
 
 from twisted.internet import protocol
 from twisted.protocols.basic import LineReceiver

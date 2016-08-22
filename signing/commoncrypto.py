@@ -1,4 +1,4 @@
-# -*- test-case-name: signing.test.validator_tests -*-
+# -*- test-case-name: signing.test.test_validator -*-
 
 """
 Validate that data is signed, strip signature from signed data, and sign data.

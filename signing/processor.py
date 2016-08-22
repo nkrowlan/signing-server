@@ -1,4 +1,4 @@
-# -*- test-case-name: signing.test.processor_tests -*-
+# -*- test-case-name: signing.test.test_processor -*-
 
 from twisted.internet import defer
 from twisted.python import log
