@@ -4,7 +4,7 @@ from twisted.internet import protocol
 from twisted.protocols.basic import LineReceiver
 from twisted.python import log
 
-from processor import NoSuchCommand, WrongNumberOfArguments
+from signing.processor import NoSuchCommand, WrongNumberOfArguments
 
 class InvalidSignature(Exception):
     pass
