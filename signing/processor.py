@@ -9,6 +9,19 @@ class NoSuchCommand(Exception):
 class WrongNumberOfArguments(Exception):
     pass
 
+_cmds = []
+
+def expose(f):
+    if f in _cmds:
+        raise ValueError('%s is already exposed!' % f.name)
+
+    _cmds.append(f)
+
+    def inner(*args, **kwargs):
+        return f(*args, **kwargs)
+
+    return inner
+
 class Processor(object):
     """
     Lookup exposed_command method of implementation, return the result (a deferred).
@@ -16,10 +29,10 @@ class Processor(object):
 
     preargs = []
 
-    def __init__(self, implementation, commands):
+    def __init__(self, implementation):
         self.processor_impl = implementation()
-        for cmd in commands:
-            setattr(self, 'exposed_%s' % cmd, getattr(self.processor_impl, cmd))
+        for cmd in _cmds:
+            setattr(self, 'exposed_%s' % cmd.__name__, cmd)
 
     def process(self, command, args = []):
         """
@@ -45,7 +58,7 @@ class Processor(object):
             return d
 
         try:
-            return getattr(self, 'exposed_%s' % command)(*(self.preargs + args))
+            return getattr(self, 'exposed_%s' % command)(self.processor_impl, *(self.preargs + args))
         except AttributeError as e:
             d = defer.Deferred()
             d.errback(NoSuchCommand('%s was not found' % command))

@@ -1,11 +1,12 @@
 from twisted.internet import defer
 from twisted.trial import unittest
 
-from signing.processor import Processor, NoSuchCommand, WrongNumberOfArguments
+from signing.processor import Processor, expose, NoSuchCommand, WrongNumberOfArguments
 
 class ProcessorTestCase(unittest.TestCase):
     class SayHiProcessorImplementation(object):
         """Trivial testing implementation."""
+        @expose
         def say_hi(self, identifier):
             d = defer.Deferred()
             d.callback('hello, %s' % identifier)
@@ -21,7 +22,7 @@ class ProcessorTestCase(unittest.TestCase):
         self.testdata = 'somedata'
         self.expected = 'hello, somedata'
         self.unexposed_command = 'hidden_func'
-        self.processor = Processor(self.SayHiProcessorImplementation, [self.testcmd])
+        self.processor = Processor(self.SayHiProcessorImplementation)
 
     def test_expected_processing_result_with_preargs(self):
         self.processor.preargs = [self.testdata]

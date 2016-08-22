@@ -10,7 +10,7 @@ from signing.signedprotocol import SignedProtocol, SignedProtocolFactory
 
 port = 23456
 
-processor = Processor(SayHiImplementation, ['say_hi'])
+processor = Processor(SayHiImplementation)
 signer = Signer('dummyprivkey')
 validator = Validator()
 
