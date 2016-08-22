@@ -5,12 +5,12 @@ from twisted.python.logfile import DailyLogFile
 
 from signing.commoncrypto import Validator, Signer
 from signing.processor import Processor
-from signing.processorimpl.sayhiimplementation import SayHiImplementation
+from signing.processorimpl.storeimplementation import StoreImplementation
 from signing.signedprotocol import SignedProtocol, SignedProtocolFactory
 
 port = 23456
 
-processor = Processor(SayHiImplementation)
+processor = Processor(StoreImplementation)
 signer = Signer('dummyprivkey')
 validator = Validator()
 
