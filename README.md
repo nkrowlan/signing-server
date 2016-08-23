@@ -45,10 +45,10 @@ Log output can be monitored in `signed_message_simple.log`.
 Extending functionality
 -----------------------
 
-To add additional commands, create an object with methods that take the desired string arguments,
-and instantiate the [Processor](/signing/processor.py) instance with the class name and a list of strings
-containing the names of the functions to expose to clients. Instantiate the [SignedProtocolFactory](/signing/signedprotocol.py) with that processor,
-and they functions will be available to clients. See the included [SayHiImplementation](/signing/processorimpl/sayhiimplementation.py) and [signing_server.tac](/signing_server.tac).
+To add additional commands, create an object with methods decorated by '''expose''' from [signing.processor](/signing/processor.py) that take the desired string arguments,
+and instantiate the [Processor](/signing/processor.py) instance with the class name.
+Instantiate the [SignedProtocolFactory](/signing/signedprotocol.py) with that processor,
+and the decorated methods will be available to clients. See the included [SayHiImplementation](/signing/processorimpl/sayhiimplementation.py) and [signing_server.tac](/signing_server.tac).
 
 Running tests
 -------------
@@ -56,16 +56,11 @@ Running tests
 Unit tests in [signing/test/](/signing/test/) are written using Twisted's trial framework. Execute tests
 using the `trial` tool provided with Twisted, for example:
 ```
-$ trial signing.test.commoncrypto_tests
-signing.test.commoncrypto_tests
-CommoncryptoTestCase
-test_remove_signature ...                                              [OK]
-test_sign_with_external_key_equivalent_to_internal ...                 [OK]
-test_signed_data_validates ...                                         [OK]
-test_unsigned_data_fails ...                                           [OK]
-
--------------------------------------------------------------------------------
-Ran 4 tests in 0.828s
-
-PASSED (successes=4)
+$ trial signing
+signing.test.test_commoncrypto
+  CommoncryptoTestCase
+    test_remove_signature ...                                              [OK]
+    test_sign_with_external_key_equivalent_to_internal ...                 [OK]
+    test_signed_data_validates ...                                         [OK]
+[..]
 ```
